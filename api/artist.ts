@@ -2,6 +2,8 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 import axios from 'axios'
 
 export default async function handler(requst: VercelRequest, response: VercelResponse) {
+    const artistId = requst.query.id as string;
+
     const clientId = process.env.SPOTIFY_CLIENT_ID;
     const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
@@ -26,7 +28,7 @@ export default async function handler(requst: VercelRequest, response: VercelRes
     }).then((response) => response.data.access_token);
 
 
-    const artistAlbums = await axios.get<SpotifyAlbumsResponse>("https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/albums", {
+    const artistAlbums = await axios.get<SpotifyAlbumsResponse>(`https://api.spotify.com/v1/artists/${artistId}/albums`, {
         headers: {
             "Authorization": `Bearer ${token}`
         }
