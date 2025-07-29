@@ -45,7 +45,6 @@ interface SimplifiedAlbumObject {
   album_group?: "album" | "single" | "compilation" | "appears_on";
 }
 
-
 interface SpotifyAlbumsResponse {
   href: string;
   limit: number;
@@ -54,4 +53,54 @@ interface SpotifyAlbumsResponse {
   previous: string | null;
   total: number;
   items: SimplifiedAlbumObject[];
+}
+
+interface TrackCopyright {
+  text: string;
+  type: string;
+}
+
+interface ExternalIds {
+  isrc?: string;
+  ean?: string;
+  upc?: string;
+}
+
+interface SimplifiedTrackObject {
+  artists: SimplifiedArtistObject[];
+  available_markets?: string[];
+  disc_number: number;
+  duration_ms: number;
+  explicit: boolean;
+  external_urls: ExternalUrls;
+  href: string;
+  id: string;
+  is_playable?: boolean;
+  linked_from?: any;
+  restrictions?: Restrictions;
+  name: string;
+  preview_url?: string | null;
+  track_number: number;
+  type: "track";
+  uri: string;
+  is_local: boolean;
+}
+
+interface AlbumTrackObject {
+  href: string;
+  limit: number;
+  next: string | null;
+  offset: number;
+  previous: string | null;
+  total: number;
+  items: SimplifiedTrackObject[];
+}
+
+interface FullAlbumObject extends SimplifiedAlbumObject {
+  copyrights: TrackCopyright[];
+  external_ids: ExternalIds;
+  genres: string[];
+  label: string;
+  popularity: number;
+  tracks: AlbumTrackObject;
 }
