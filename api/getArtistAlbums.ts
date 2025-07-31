@@ -16,7 +16,5 @@ export default async function handler(request: VercelRequest, response: VercelRe
         }
     }).then((response) => response.data);
 
-    return response.json({
-        artistAlbums
-    });
+    return response.json(artistAlbums);
 }
